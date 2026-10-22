@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Карточка</title>
+  
+  <!-- Подключение шрифта Montserrat из Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Подключение иконок Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+          },
+          colors: {
+            brandOrange: '#FF5722',
+            brandOrangeHover: '#E64A19',
+            instaGrad: '#E1306C',
+            telegramColor: '#0088cc',
+            behanceColor: '#1769ff',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* CSS Grid плавная анимация раскрытия без прыжков курсора */
+    .expand-wrapper {
+      display: grid;
+      grid-template-columns: 0fr;
+      transition: grid-template-columns 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .group:hover .expand-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .expand-content {
+      overflow: hidden;
+    }
+
+    /* Плавная анимация проявления текста */
+    .text-fade {
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .group:hover .text-fade {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.06s;
+    }
+
+    /* Анимация появления всего меню при загрузке страницы */
+    @keyframes menuAppear {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .animate-appear {
+      animation: menuAppear 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="bg-[#0e0f10] text-white min-h-screen flex items-center justify-center p-4 selection:bg-brandOrange selection:text-white font-sans">
+
+  <!-- Главный контейнер-плашка -->
+  <div class="animate-appear bg-[#141517] p-2 sm:p-2.5 rounded-full border border-white/10 shadow-2xl flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 max-w-full backdrop-blur-md">
+    
+    <!-- Основная секция: Лого + Соцсети -->
+    <div class="flex items-center gap-1.5 sm:gap-2 bg-[#1b1c1d] p-1.5 rounded-full border border-white/5">
+      
+      <!-- 1. Капсула: Логотип (значок + выезжающий текст из локальных SVG) -->
+      <a href="#" class="logo-capsule group relative inline-flex items-center h-12 sm:h-14 bg-[#232528] hover:bg-[#2e3034] rounded-full border border-white/10 px-3 sm:px-3.5 text-white transition-all duration-300 ease-out">
+        
+        <!-- Увеличенный символ логотипа из файла logo-icon.svg -->
+        <img src="logo-icon.svg" alt="Logo" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 object-contain filter brightness-0 invert" />
+
+        <!-- Выезжающий текст из файла logo-text.svg (плотно прилегает к иконке) -->
+        <div class="expand-wrapper">
+          <div class="expand-content flex items-center">
+            <img src="logo-text.svg" alt="Logo Text" class="h-6 sm:h-7 ml-1.5 sm:ml-2 mr-1 object-contain whitespace-nowrap text-fade filter brightness-0 invert" />
+          </div>
+        </div>
+      </a>
+
+      <!-- Разделитель -->
+      <div class="w-[1px] h-6 bg-white/10 my-auto mx-0.5"></div>
+
+      <!-- 2. Instagram -->
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center h-12 sm:h-14 bg-[#232528] hover:bg-instaGrad rounded-full border border-white/10 px-3.5 sm:px-4 text-white transition-all duration-300 ease-out">
+        <i class="fa-brands fa-instagram text-lg sm:text-xl shrink-0"></i>
+        <div class="expand-wrapper">
+          <div class="expand-content flex items-center">
+            <span class="ml-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap text-fade">Instagram</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 3. Telegram -->
+      <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center h-12 sm:h-14 bg-[#232528] hover:bg-telegramColor rounded-full border border-white/10 px-3.5 sm:px-4 text-white transition-all duration-300 ease-out">
+        <i class="fa-brands fa-telegram text-lg sm:text-xl shrink-0"></i>
+        <div class="expand-wrapper">
+          <div class="expand-content flex items-center">
+            <span class="ml-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap text-fade">Telegram</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 4. Behance -->
+      <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center h-12 sm:h-14 bg-[#232528] hover:bg-behanceColor rounded-full border border-white/10 px-3.5 sm:px-4 text-white transition-all duration-300 ease-out">
+        <i class="fa-brands fa-behance text-lg sm:text-xl shrink-0"></i>
+        <div class="expand-wrapper">
+          <div class="expand-content flex items-center">
+            <span class="ml-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap text-fade">Behance</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- 5. Кнопка «Скачать портфолио» -->
+    <a href="portfolio.pdf" download class="group relative inline-flex items-center justify-center h-12 sm:h-14 bg-brandOrange hover:bg-brandOrangeHover rounded-full px-5 sm:px-6 text-white font-semibold transition-all duration-300 ease-out shadow-lg shadow-brandOrange/20 hover:shadow-brandOrange/40 hover:scale-[1.02] active:scale-[0.98]">
+      <i class="fa-regular fa-folder-open text-base sm:text-lg mr-2 sm:mr-2.5 transition-transform duration-300 group-hover:-translate-y-0.5"></i>
+      <span class="text-xs sm:text-sm tracking-wide">Скачать портфолио</span>
+    </a>
+
+  </div>
+
+</body>
+</html>
